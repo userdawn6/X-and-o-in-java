@@ -56,3 +56,40 @@ public XandO() {
 
         frame.setVisible(true);
     }
+    class ButtonClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (gameWon) return;
+
+            JButton buttonClicked = (JButton) e.getSource();
+
+            if (buttonClicked.getText().equals("")) {
+                if (player1_turn) {
+                    buttonClicked.setText("X");
+                    buttonClicked.setForeground(Color.RED);
+                } else {
+                    buttonClicked.setText("O");
+                    buttonClicked.setForeground(Color.BLUE);
+                }
+                player1_turn = !player1_turn;
+                textlabel.setText(player1_turn ? "Player 1's Turn (X)" : "Player 2's Turn (O)");
+                checkForWin();
+            }
+        }
+    }
+
+    void checkForWin() {
+        for (int[] combination : winCombinations) {
+            if (buttons[combination[0]].getText().equals(buttons[combination[1]].getText()) &&
+                    buttons[combination[1]].getText().equals(buttons[combination[2]].getText()) &&
+                    !buttons[combination[0]].getText().equals("")) {
+
+                String winner = buttons[combination[0]].getText();
+                textlabel.setText(winner + " wins!");
+                JOptionPane.showMessageDialog(frame, winner + " wins!");
+                disableButtons();
+                gameWon = true;
+                promptPlayAgain();
+                return;
+            }
+        }
