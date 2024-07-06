@@ -1,7 +1,9 @@
 ALGORITHM FOR THE X and O PROGRAM
 
 Initialize Game:
+
 (1) Create a 3x3 grid of buttons.
+
        Define winning combinations.
        Set player1_turn to true.
        Set gameWon to false.
